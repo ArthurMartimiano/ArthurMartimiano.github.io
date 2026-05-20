@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace | Página de Teste</title>
+    <style>
+        /* Variáveis de cores para facilitar a customização */
+        :root {
+            --bg-color: #0f111a;
+            --card-bg: #1a1d2d;
+            --text-main: #f8f8f2;
+            --text-muted: #a1a1aa;
+            --accent: #00ff88;
+        }
+
+        /* Reset básico de CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Container principal centralizado */
+        .card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h1 {
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Estilização do botão */
+        .btn {
+            background-color: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--accent);
+            color: var(--bg-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Área para mensagens dinâmicas do JS */
+        #status-msg {
+            margin-top: 1.5rem;
+            min-height: 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1 id="greeting">Olá, <span>Dev</span>!</h1>
+        <p>Esta é uma página inicial estruturada com HTML, CSS e JavaScript no mesmo arquivo. Use-a como base para testar novos projetos e lógicas.</p>
+        
+        <button class="btn" id="action-btn">Testar Interatividade</button>
+        <p id="status-msg"></p>
+    </div>
+
+    <script>
+        // Lógica 1: Saudação dinâmica baseada na hora do dia
+        function setDynamicGreeting() {
+            const hour = new Date().getHours();
+            const greetingElement = document.getElementById('greeting');
+            
+            let timeOfDay = 'Olá';
+            if (hour >= 5 && hour < 12) {
+                timeOfDay = 'Bom dia';
+            } else if (hour >= 12 && hour < 18) {
+                timeOfDay = 'Boa tarde';
+            } else {
+                timeOfDay = 'Boa noite';
+            }
+
+            greetingElement.innerHTML = `${timeOfDay}, <span>Dev</span>!`;
+        }
+
+        // Lógica 2: Interação e contagem de cliques no botão
+        const btn = document.getElementById('action-btn');
+        const statusMsg = document.getElementById('status-msg');
+        let clickCount = 0;
+
+        btn.addEventListener('click', () => {
+            clickCount++;
+            
+            // Muda a cor do texto dependendo da quantidade de cliques
+            statusMsg.style.color = 'var(--accent)';
+
+            if (clickCount === 1) {
+                statusMsg.textContent = "Sistema online! O JavaScript está funcionando perfeitamente. 🚀";
+            } else {
+                statusMsg.textContent = `Sinal recebido: Você clicou ${clickCount} vezes.`;
+            }
+
+            // Animação rápida de "click" via JS
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                btn.style.transform = '';
+            }, 100);
+        });
+
+        // Inicializa a saudação assim que a página carrega
+        window.onload = setDynamicGreeting;
+    </script>
+
+</body>
+</html>
